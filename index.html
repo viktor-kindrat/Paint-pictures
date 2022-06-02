@@ -15,10 +15,26 @@
 <body>
 <div class="wrap">
     <div class="btn menu">
-
+        <div class="menu__btn">
+            <div class="menu__dash menu__dash1"></div>
+            <div class="menu__dash menu__dash2"></div>
+            <div class="menu__dash menu__dash3"></div>
+        </div>
     </div>
     <canvas class="board" id="board">Update your browser</canvas>
-    <div class="btn color"></div>
+    <div class="btn color color_enabled">
+        <div class="color__inner">
+            <div class="color__item color__item1"></div>
+            <div class="color__item color__item2"></div>
+            <div class="color__item color__item3"></div>
+            <div class="color__item color__item4"></div>
+            <div class="color__item color__item5"></div>
+            <label>
+                <span class="color__label" id="color"></span>
+                <input class="color__input" type="color" value="#141414" id="choose">
+            </label>
+        </div>
+    </div>
 </div>
     <script src="main.js"></script>
 </body>

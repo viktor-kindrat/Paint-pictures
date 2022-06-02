@@ -1,15 +1,11 @@
 let canv = document.getElementById('board');
 let ctx = canv.getContext('2d');
 
-let color = '#000000';
+let color = '#141414';
 let lineWidth = 10;
 let isMouseDown = false;
 let cords = [];
 
-// lwidth.onchange = function (){
-//     lineWidth = lwidth.value;
-//     ctx.lineWidth = lineWidth*2;
-// }
 canv.width = window.innerWidth;
 canv.height = window.innerHeight;
 
@@ -55,8 +51,7 @@ canv.addEventListener('mousedown', function (e) {
 })
 
 function clear() {
-    ctx.fillStyle = '#ffffff';
-    ctx.fillRect(0, 0, canv.width, canv.height);
+    ctx.clearRect(0, 0, canv.width, canv.height);
     ctx.beginPath();
     ctx.fillStyle = color;
 }
@@ -100,20 +95,23 @@ function reply() {
     }, 10)
 }
 
-// red.onclick = function () {
-//     color = 'red';
-//     ctx.strokeStyle = color;
-//     ctx.fillStyle = color;
-// }
-//
-// green.onclick = function () {
-//     color = 'green';
-//     ctx.strokeStyle = color;
-//     ctx.fillStyle = color;
-// }
-//
-// blue.onclick = function () {
-//     color = 'blue';
-//     ctx.strokeStyle = color;
-//     ctx.fillStyle = color;
-// }
+let input = document.getElementById('choose');
+let inputArea = document.getElementById('color');
+
+input.addEventListener('input', function () {
+    inputArea.style.background = input.value + ' url("./images/picker.svg") center no-repeat';
+    color = input.value;
+    ctx.strokeStyle = color;
+    ctx.fillStyle = color;
+});
+
+let colorsBtn = document.querySelectorAll('.color__item');
+console.log(getComputedStyle(colorsBtn[0]))
+
+for(let i = 0; i !== colorsBtn.length; i++) {
+    colorsBtn[i].addEventListener('click', function () {
+        color = getComputedStyle(colorsBtn[i]).backgroundColor;
+        ctx.strokeStyle = color;
+        ctx.fillStyle = color;
+    })
+}
