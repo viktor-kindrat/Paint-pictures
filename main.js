@@ -26,7 +26,11 @@ ctx.fillStyle = color;
 
 canv.addEventListener('mousemove', function (e) {
     if(isMouseDown) {
-        cords.push([e.clientX, e.clientY])
+        cords.push({
+            x: e.clientX,
+            y: e.clientY,
+            color: color
+        });
         ctx.lineTo(e.clientX, e.clientY);
 
         ctx.stroke();
@@ -40,9 +44,16 @@ canv.addEventListener('mousemove', function (e) {
 
 canv.addEventListener('mousedown', function (e) {
     if(isMouseDown) {
-        cords.push([e.clientX, e.clientY])
+        cords.push({
+            x: e.clientX,
+            y: e.clientY,
+            color: color
+        });
         ctx.lineTo(e.clientX, e.clientY);
 
+        console.log(cords)
+        ctx.strokeStyle = color;
+        ctx.fillStyle = color;
         ctx.stroke();
         ctx.beginPath();
         ctx.arc(e.clientX, e.clientY, lineWidth, 0, Math.PI * 2);
@@ -53,6 +64,7 @@ canv.addEventListener('mousedown', function (e) {
 })
 
 function clear() {
+    cords = [];
     ctx.clearRect(0, 0, canv.width, canv.height);
     ctx.beginPath();
     ctx.fillStyle = color;
@@ -75,18 +87,23 @@ document.addEventListener('keydown', function (e) {
 })
 
 function reply() {
+    let cordsCopy = cords;
     let timer = setInterval(function () {
-        if (!cords.length) {
+        if (!cordsCopy.length) {
             clearInterval(timer)
             ctx.beginPath();
             return ;
         }
-        let crd = cords.shift();
+        let crd = cordsCopy.shift();
         let e = {
-            clientX: crd[0],
-            clientY: crd[1]
+            clientX: crd.x,
+            clientY: crd.y,
+            color: crd.color
         }
+        console.log(cords)
 
+        ctx.strokeStyle = e.color;
+        ctx.fillStyle = e.color;
         ctx.lineTo(e.clientX, e.clientY);
         ctx.stroke();
         ctx.beginPath();
