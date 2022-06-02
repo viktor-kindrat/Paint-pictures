@@ -25,6 +25,7 @@ body {
     z-index: 5;
     position: fixed;
     cursor: pointer;
+    transition: 0.3s;
 }
 
 .color {
@@ -69,9 +70,13 @@ body {
     padding: 25px 25px 25px 100px;
 }
 
-.color__inner {
+.color_enabled .color__inner {
     display: flex;
     align-items: center;
+}
+
+.color_disabled .color__inner {
+    display: none;
 }
 
 .color__item {

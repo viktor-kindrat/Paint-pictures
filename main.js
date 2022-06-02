@@ -1,3 +1,5 @@
+let trig = 0;
+
 let canv = document.getElementById('board');
 let ctx = canv.getContext('2d');
 
@@ -106,7 +108,6 @@ input.addEventListener('input', function () {
 });
 
 let colorsBtn = document.querySelectorAll('.color__item');
-console.log(getComputedStyle(colorsBtn[0]))
 
 for(let i = 0; i !== colorsBtn.length; i++) {
     colorsBtn[i].addEventListener('click', function () {
@@ -115,3 +116,14 @@ for(let i = 0; i !== colorsBtn.length; i++) {
         ctx.fillStyle = color;
     })
 }
+
+let colorsOpen = document.querySelector('.btn.color');
+colorsOpen.addEventListener('click', function (){
+    if (trig === 0) {
+        colorsOpen.setAttribute('class', 'btn color color_enabled');
+        trig = 1;
+    } else {
+        colorsOpen.setAttribute('class', 'btn color color_disabled');
+        trig = 0;
+    }
+})
