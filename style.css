@@ -40,9 +40,107 @@ body {
     right: 40px;
     background: rgba(51, 51, 51, 0.6);
     display: flex;
+    flex-direction: row-reverse;
     align-items: center;
     justify-content: center;
 }
+
+.menu_active {
+    height: auto;
+    width: auto;
+    border-radius: 50px;
+    padding: 25px;
+    color: #ffffff;
+    font-family: Montserrat, sans-serif;
+    justify-content: space-between;
+}
+
+.menu_disabled .menu__inner {
+    display: none;
+}
+
+.menu__inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.menu__logo {
+    height: 70px;
+    width: 240px;
+    background: url("./images/menu/logo.svg") no-repeat center;
+    margin-right: 5rem;
+    align-self: center;
+}
+
+.menu__row {
+    display: flex;
+    justify-content: space-around;
+    flex-direction: row;
+    margin-bottom: 10px;
+}
+
+.menu__column {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-direction: column;
+    margin-right: 1rem;
+}
+
+.menu__item {
+    height: 45%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    margin-right: 10px;
+}
+
+.menu__item_1 .menu__item-img {
+    background: url("./images/menu/save.svg") no-repeat center;
+    background-size: contain;
+}
+.menu__item_2 .menu__item-img {
+    background: url("./images/menu/reply.svg") no-repeat center;
+    background-size: contain;
+}
+.menu__item_3 .menu__item-img {
+    background: url("./images/menu/open.svg") no-repeat center;
+    background-size: contain;
+}
+.menu__item_4 .menu__item-img {
+    background: url("./images/menu/clear.svg") no-repeat center;
+    background-size: contain;
+}
+.menu__item_5 .menu__item-img {
+    background: url("./images/menu/eraser.svg") no-repeat center;
+    background-size: contain;
+}
+.menu__item_6 .menu__item-img {
+    background: url("./images/menu/weight.svg") no-repeat center;
+    background-size: contain;
+}
+.menu__item_7 .menu__item-img {
+    background: url("./images/menu/speed.svg") no-repeat center;
+    background-size: contain;
+}
+.menu__item_8 .menu__item-img {
+    background: url("./images/menu/line.svg") no-repeat center;
+    background-size: contain;
+}
+
+.menu__item-img {
+    height: 70px;
+    width: 50px;
+    background: #000;
+}
+
+.menu__inner {
+    display: flex;
+}
+
 
 .menu__btn {
     height: 33px;
