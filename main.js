@@ -1,4 +1,6 @@
-let trig = 0;
+let colorTrigger = 0;
+let rubberColor = '#ffffff';
+let speed = 10;
 
 let canv = document.getElementById('board');
 let ctx = canv.getContext('2d');
@@ -64,7 +66,6 @@ canv.addEventListener('mousedown', function (e) {
 })
 
 function clear() {
-    cords = [];
     ctx.clearRect(0, 0, canv.width, canv.height);
     ctx.beginPath();
     ctx.fillStyle = color;
@@ -77,17 +78,21 @@ function save() {
 document.addEventListener('keydown', function (e) {
     console.log(e.keyCode)
     if (e.keyCode === 67) {
+        cords = [];
         clear();
     } else if (e.keyCode === 83) {
         save();
     } else if (e.keyCode === 82) {
-        cords = JSON.parse(localStorage.getItem('cords'));
-        reply()
+        clear();
+        let saved = JSON.parse(localStorage.getItem('cords'));
+        cords = cords.concat(saved);
+        localStorage.setItem('cords', JSON.stringify(cords))
+        reply(cords);
     }
 })
 
-function reply() {
-    let cordsCopy = cords;
+function reply(arr) {
+    let cordsCopy = arr;
     let timer = setInterval(function () {
         if (!cordsCopy.length) {
             clearInterval(timer)
@@ -111,13 +116,14 @@ function reply() {
         ctx.fill();
         ctx.beginPath();
         ctx.moveTo(e.clientX, e.clientY);
-    }, 10)
+    }, speed)
 }
 
 let input = document.getElementById('choose');
 let inputArea = document.getElementById('color');
 
 input.addEventListener('input', function () {
+    rubberBtn.style.background = 'transparent';
     inputArea.style.background = input.value + ' url("./images/picker.svg") center no-repeat';
     color = input.value;
     ctx.strokeStyle = color;
@@ -128,6 +134,7 @@ let colorsBtn = document.querySelectorAll('.color__item');
 
 for(let i = 0; i !== colorsBtn.length; i++) {
     colorsBtn[i].addEventListener('click', function () {
+        rubberBtn.style.background = 'transparent';
         color = getComputedStyle(colorsBtn[i]).backgroundColor;
         ctx.strokeStyle = color;
         ctx.fillStyle = color;
@@ -136,11 +143,52 @@ for(let i = 0; i !== colorsBtn.length; i++) {
 
 let colorsOpen = document.querySelector('.btn.color');
 colorsOpen.addEventListener('click', function (){
-    if (trig === 0) {
+    if (colorTrigger === 0) {
         colorsOpen.setAttribute('class', 'btn color color_enabled');
-        trig = 1;
+        colorTrigger = 1;
     } else {
         colorsOpen.setAttribute('class', 'btn color color_disabled');
-        trig = 0;
+        colorTrigger = 0;
     }
+})
+
+let menuOpen = document.querySelector('.menu');
+menuOpen.addEventListener('click', function () {
+    menuOpen.setAttribute('class', 'btn menu menu_active');
+});
+menuOpen.addEventListener('dblclick', function () {
+    menuOpen.setAttribute('class', 'btn menu menu_disabled');
+})
+
+let saveBtn = document.getElementById('saveBtn');
+saveBtn.addEventListener('click', function () {
+    save();
+});
+
+let replyBtn = document.getElementById('replyBtn');
+replyBtn.addEventListener('click', function () {
+    clear();
+    let saved = JSON.parse(localStorage.getItem('cords'));
+    cords = cords.concat(saved);
+    localStorage.setItem('cords', JSON.stringify(cords))
+    reply(cords);
+})
+
+let clearBtn = document.getElementById('clearBtn');
+clearBtn.addEventListener('click', function () {
+    cords = [];
+    clear();
+});
+
+let rubberBtn = document.getElementById('rubberBtn');
+rubberBtn.addEventListener('click', function () {
+    color = rubberColor
+    rubberBtn.style.background = 'rgba(255,255,255,0.21)';
+})
+
+let speedInp = document.getElementById('speedInp');
+speedInp.addEventListener('change', function (){
+    console.log(speedInp.value)
+    document.querySelector('.speed__info').style.left = 10 * speedInp.value + 'px';
+    document.querySelector('.speed__info').innerHTML = speedInp.value;
 })
