@@ -31,7 +31,8 @@ canv.addEventListener('mousemove', function (e) {
         cords.push({
             x: e.clientX,
             y: e.clientY,
-            color: color
+            color: color,
+            lineWidth: lineWidth
         });
         ctx.lineTo(e.clientX, e.clientY);
 
@@ -46,10 +47,13 @@ canv.addEventListener('mousemove', function (e) {
 
 canv.addEventListener('mousedown', function (e) {
     if(isMouseDown) {
+        document.querySelector('.weight').style.display = 'none';
+        document.querySelector('.weight').style.opacity = '0';
         cords.push({
             x: e.clientX,
             y: e.clientY,
-            color: color
+            color: color,
+            width: lineWidth
         });
         ctx.lineTo(e.clientX, e.clientY);
 
@@ -100,6 +104,7 @@ function reply(arr) {
             return ;
         }
         let crd = cordsCopy.shift();
+        ctx.lineWidth = crd.lineWidth * 2;
         let e = {
             clientX: crd.x,
             clientY: crd.y,
@@ -186,9 +191,18 @@ rubberBtn.addEventListener('click', function () {
     rubberBtn.style.background = 'rgba(255,255,255,0.21)';
 })
 
-let speedInp = document.getElementById('speedInp');
-speedInp.addEventListener('change', function (){
-    console.log(speedInp.value)
-    document.querySelector('.speed__info').style.left = 10 * speedInp.value + 'px';
-    document.querySelector('.speed__info').innerHTML = speedInp.value;
+let weightInp = document.getElementById('weightInp');
+weightInp.addEventListener('input', function (){
+    menuOpen.setAttribute('class', 'btn menu menu_disabled');
+    lineWidth = weightInp.value;
+    ctx.lineWidth = lineWidth*2;
+    console.log(weightInp.value)
+    document.querySelector('.weight__info').style.left = 10 * weightInp.value + 'px';
+    document.querySelector('.weight__info').innerHTML = weightInp.value;
+})
+
+let weightBtn = document.getElementById('weightBtn');
+weightBtn.addEventListener('click', function () {
+    document.querySelector('.weight').style.display = 'flex';
+    document.querySelector('.weight').style.opacity = '1';
 })

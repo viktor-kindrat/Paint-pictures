@@ -14,7 +14,7 @@ body {
 }
 
 .board {
-    z-index: 0;
+    z-index: 200;
 }
 
 .btn {
@@ -240,7 +240,8 @@ body {
     top: 25px;
 }
 
-.speed {
+.weight {
+    z-index: 0;
     width: 300px;
     border-radius: 50px;
     height: 100px;
@@ -251,20 +252,24 @@ body {
     background: rgba(51, 51, 51, 0.6);
     font-family: Montserrat, sans-serif;
     color: #ffffff;
-    display: flex;
+    display: none;
     flex-direction: column;
     justify-content: center;
+    opacity: 0;
+    transition: 0.3s;
 }
 
-.speed__input {
+.weight__input {
     width: 100%;
     accent-color: #7915e3;
     margin-top: 10px;
+    outline: none;
 }
 
-.speed__info {
+.weight__info {
     margin-left: -7px;
     text-align: center;
     position: relative;
+    left: 100px;
     transition: 0.3s;
 }
