@@ -75,6 +75,20 @@ canv.addEventListener('mousedown', function (e) {
         document.querySelector('.weight').style.opacity = '0';
         document.querySelector('.speed').style.display = 'none';
         document.querySelector('.speed').style.opacity = '0';
+        if (lineActive === 1) {
+            lineCoord.x = e.clientX;
+            lineCoord.y = e.clientY;
+            lineActive = 2;
+            cords.push('line start');
+        } else if (lineActive === 2) {
+            ctx.moveTo(lineCoord.x, lineCoord.y);
+            ctx.lineTo(e.clientX, e.clientY);
+            ctx.stroke();
+            ctx.fill();
+            lineActive = 0;
+            lineBtn.style.background = 'transparent';
+            cords.push('line end');
+        }
         cords.push({
             x: e.clientX,
             y: e.clientY,
@@ -92,17 +106,6 @@ canv.addEventListener('mousedown', function (e) {
         ctx.fill();
         ctx.beginPath();
         ctx.moveTo(e.clientX, e.clientY);
-        if (lineActive === 1) {
-            lineCoord.x = e.clientX;
-            lineCoord.y = e.clientY;
-            lineActive = 2;
-        } else if (lineActive === 2) {
-            ctx.moveTo(lineCoord.x, lineCoord.y);
-            ctx.lineTo(e.clientX, e.clientY);
-            ctx.stroke();
-            ctx.fill();
-            lineActive = 0;
-        }
     }
 })
 
@@ -148,17 +151,38 @@ function reply(arr) {
             clientY: crd.y,
             color: crd.color
         }
-        console.log(cords)
-
+        console.log(crd)
         ctx.strokeStyle = e.color;
         ctx.fillStyle = e.color;
-        ctx.lineTo(e.clientX, e.clientY);
-        ctx.stroke();
-        ctx.beginPath();
-        ctx.arc(e.clientX, e.clientY, lineWidth, 0, Math.PI * 2);
-        ctx.fill();
-        ctx.beginPath();
-        ctx.moveTo(e.clientX, e.clientY);
+        if (crd === 'line start') {
+            let newCrd = cordsCopy.shift();
+            lineWidth = newCrd.lineWidth;
+            ctx.lineWidth = lineWidth*2;
+
+            ctx.strokeStyle = newCrd.color;
+            ctx.fillStyle = newCrd.color;
+            ctx.moveTo(newCrd.x, newCrd.y);
+            console.log(newCrd);
+            cordsCopy.shift();
+        } else if (crd === 'line end') {
+            let newCrd = cordsCopy.shift();
+            ctx.lineTo(newCrd.x, newCrd.y)
+            ctx.stroke();
+            ctx.beginPath();
+            ctx.arc(newCrd.x, newCrd.y, lineWidth, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.beginPath();
+            ctx.moveTo(newCrd.x, newCrd.y);
+            ctx.beginPath();
+        } else {
+            ctx.lineTo(e.clientX, e.clientY);
+            ctx.stroke();
+            ctx.beginPath();
+            ctx.arc(e.clientX, e.clientY, lineWidth, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.beginPath();
+            ctx.moveTo(e.clientX, e.clientY);
+        }
     }, speed)
 }
 
@@ -255,4 +279,5 @@ speedBtn.addEventListener('click', function () {
 
 lineBtn.addEventListener('click', function () {
     lineActive = 1;
+    lineBtn.style.background = 'rgba(255,255,255,0.21)';
 })
