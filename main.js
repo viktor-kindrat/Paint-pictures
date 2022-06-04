@@ -5,6 +5,8 @@ let lineWidth = localStorage.getItem('lineWidth') || 10;
 let isMouseDown = false;
 let cords = [];
 let speed = localStorage.getItem('speed') || 10;
+let lineActive = 0;
+let lineCoord = {}
 
 let input = document.getElementById('choose');
 let inputArea = document.getElementById('color');
@@ -18,6 +20,7 @@ let rubberBtn = document.getElementById('rubberBtn');
 let weightInp = document.getElementById('weightInp');
 let weightBtn = document.getElementById('weightBtn');
 let speedInp = document.getElementById('speedInp');
+let lineBtn = document.getElementById('lineBtn');
 
 weightInp.value = lineWidth;
 speedInp.value = speed;
@@ -89,6 +92,17 @@ canv.addEventListener('mousedown', function (e) {
         ctx.fill();
         ctx.beginPath();
         ctx.moveTo(e.clientX, e.clientY);
+        if (lineActive === 1) {
+            lineCoord.x = e.clientX;
+            lineCoord.y = e.clientY;
+            lineActive = 2;
+        } else if (lineActive === 2) {
+            ctx.moveTo(lineCoord.x, lineCoord.y);
+            ctx.lineTo(e.clientX, e.clientY);
+            ctx.stroke();
+            ctx.fill();
+            lineActive = 0;
+        }
     }
 })
 
@@ -237,4 +251,8 @@ speedBtn.addEventListener('click', function () {
     document.querySelector('.weight').style.opacity = '0';
     document.querySelector('.speed').style.display = 'flex';
     document.querySelector('.speed').style.opacity = '1';
+});
+
+lineBtn.addEventListener('click', function () {
+    lineActive = 1;
 })
