@@ -156,23 +156,34 @@ function reply(arr) {
         ctx.fillStyle = e.color;
         if (crd === 'line start') {
             let newCrd = cordsCopy.shift();
-            lineWidth = newCrd.lineWidth;
-            ctx.lineWidth = lineWidth*2;
+            lineWidth = newCrd.width;
+            ctx.lineWidth = lineWidth * 2;
 
             ctx.strokeStyle = newCrd.color;
             ctx.fillStyle = newCrd.color;
             ctx.moveTo(newCrd.x, newCrd.y);
             console.log(newCrd);
-            cordsCopy.shift();
-        } else if (crd === 'line end') {
-            let newCrd = cordsCopy.shift();
-            ctx.lineTo(newCrd.x, newCrd.y)
+
             ctx.stroke();
+            ctx.fill();
             ctx.beginPath();
             ctx.arc(newCrd.x, newCrd.y, lineWidth, 0, Math.PI * 2);
             ctx.fill();
+            cordsCopy.shift();
+        } else if (crd === 'line end') {
+            let newCrd = cordsCopy.shift();
+
+            lineWidth = newCrd.width;
+            ctx.lineWidth = lineWidth * 2;
+            console.log('line width', ctx.lineWidth)
+            console.log(lineWidth)
+
+            ctx.lineTo(newCrd.x, newCrd.y)
+            ctx.stroke();
+            ctx.fill();
             ctx.beginPath();
-            ctx.moveTo(newCrd.x, newCrd.y);
+            ctx.arc(newCrd.x, newCrd.y, lineWidth, 0, Math.PI * 2);
+            ctx.fill();
             ctx.beginPath();
         } else {
             ctx.lineTo(e.clientX, e.clientY);
