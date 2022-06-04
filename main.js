@@ -1,10 +1,10 @@
 let colorTrigger = 0;
 let rubberColor = '#ffffff';
 let color = '#141414';
-let lineWidth = 10;
+let lineWidth = localStorage.getItem('lineWidth') || 10;
 let isMouseDown = false;
 let cords = [];
-let speed = 10;
+let speed = localStorage.getItem('speed') || 10;
 
 let input = document.getElementById('choose');
 let inputArea = document.getElementById('color');
@@ -18,6 +18,13 @@ let rubberBtn = document.getElementById('rubberBtn');
 let weightInp = document.getElementById('weightInp');
 let weightBtn = document.getElementById('weightBtn');
 let speedInp = document.getElementById('speedInp');
+
+weightInp.value = lineWidth;
+speedInp.value = speed;
+document.querySelector('.weight__info').style.left = 10 * weightInp.value + 'px';
+document.querySelector('.weight__info').innerHTML = weightInp.value;
+document.querySelector('.speed__info').style.left = 10 * speedInp.value + 'px';
+document.querySelector('.speed__info').innerHTML = speedInp.value
 
 let speedBtn = document.getElementById('speedBtn');
 let canv = document.getElementById('board');
@@ -183,6 +190,8 @@ saveBtn.addEventListener('click', function () {
 
 replyBtn.addEventListener('click', function () {
     clear();
+    document.querySelector('.speed').style.display = 'none';
+    document.querySelector('.speed').style.opacity = '0';
     let saved = JSON.parse(localStorage.getItem('cords'));
     cords = cords.concat(saved);
     localStorage.setItem('cords', JSON.stringify(cords))
@@ -202,6 +211,7 @@ rubberBtn.addEventListener('click', function () {
 weightInp.addEventListener('input', function (){
     menuOpen.setAttribute('class', 'btn menu menu_disabled');
     lineWidth = weightInp.value;
+    localStorage.setItem('lineWidth', lineWidth);
     ctx.lineWidth = lineWidth*2;
     document.querySelector('.weight__info').style.left = 10 * weightInp.value + 'px';
     document.querySelector('.weight__info').innerHTML = weightInp.value;
@@ -217,6 +227,7 @@ weightBtn.addEventListener('click', function () {
 speedInp.addEventListener('input', function () {
     menuOpen.setAttribute('class', 'btn menu menu_disabled');
     speed = speedInp.value;
+    localStorage.setItem('speed', speed)
     document.querySelector('.speed__info').style.left = 10 * speedInp.value + 'px';
     document.querySelector('.speed__info').innerHTML = speedInp.value
 });
