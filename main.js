@@ -104,7 +104,8 @@ function reply(arr) {
             return ;
         }
         let crd = cordsCopy.shift();
-        ctx.lineWidth = crd.lineWidth * 2;
+        lineWidth = crd.lineWidth;
+        ctx.lineWidth = lineWidth*2;
         let e = {
             clientX: crd.x,
             clientY: crd.y,
@@ -196,7 +197,6 @@ weightInp.addEventListener('input', function (){
     menuOpen.setAttribute('class', 'btn menu menu_disabled');
     lineWidth = weightInp.value;
     ctx.lineWidth = lineWidth*2;
-    console.log(weightInp.value)
     document.querySelector('.weight__info').style.left = 10 * weightInp.value + 'px';
     document.querySelector('.weight__info').innerHTML = weightInp.value;
 })
