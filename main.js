@@ -58,6 +58,7 @@ canv.addEventListener('mousemove', function (e) {
             color: color,
             lineWidth: lineWidth
         });
+        ctx.lineWidth = lineWidth*2;
         ctx.lineTo(e.clientX, e.clientY);
 
         ctx.stroke();
@@ -95,6 +96,7 @@ canv.addEventListener('mousedown', function (e) {
             color: color,
             width: lineWidth
         });
+        ctx.lineWidth = lineWidth*2;
         ctx.lineTo(e.clientX, e.clientY);
 
         console.log(cords)
