@@ -240,7 +240,7 @@ body {
     top: 25px;
 }
 
-.weight {
+.weight, .speed {
     z-index: 0;
     width: 300px;
     border-radius: 50px;
@@ -259,17 +259,21 @@ body {
     transition: 0.3s;
 }
 
-.weight__input {
+.weight__input, .speed__input {
     width: 100%;
     accent-color: #7915e3;
     margin-top: 10px;
     outline: none;
 }
 
-.weight__info {
+.weight__info, .speed__info {
     margin-left: -7px;
     text-align: center;
     position: relative;
     left: 100px;
     transition: 0.3s;
+}
+
+.speed__input {
+    accent-color: #fa0a0a;
 }

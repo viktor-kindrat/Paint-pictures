@@ -1,14 +1,28 @@
 let colorTrigger = 0;
 let rubberColor = '#ffffff';
-let speed = 10;
-
-let canv = document.getElementById('board');
-let ctx = canv.getContext('2d');
-
 let color = '#141414';
 let lineWidth = 10;
 let isMouseDown = false;
 let cords = [];
+let speed = 10;
+
+let input = document.getElementById('choose');
+let inputArea = document.getElementById('color');
+let colorsBtn = document.querySelectorAll('.color__item');
+let colorsOpen = document.querySelector('.btn.color');
+let menuOpen = document.querySelector('.btn.menu');
+let saveBtn = document.getElementById('saveBtn');
+let replyBtn = document.getElementById('replyBtn');
+let clearBtn = document.getElementById('clearBtn');
+let rubberBtn = document.getElementById('rubberBtn');
+let weightInp = document.getElementById('weightInp');
+let weightBtn = document.getElementById('weightBtn');
+let speedInp = document.getElementById('speedInp');
+
+let speedBtn = document.getElementById('speedBtn');
+let canv = document.getElementById('board');
+
+let ctx = canv.getContext('2d');
 
 canv.width = window.innerWidth;
 canv.height = window.innerHeight;
@@ -49,6 +63,8 @@ canv.addEventListener('mousedown', function (e) {
     if(isMouseDown) {
         document.querySelector('.weight').style.display = 'none';
         document.querySelector('.weight').style.opacity = '0';
+        document.querySelector('.speed').style.display = 'none';
+        document.querySelector('.speed').style.opacity = '0';
         cords.push({
             x: e.clientX,
             y: e.clientY,
@@ -125,8 +141,6 @@ function reply(arr) {
     }, speed)
 }
 
-let input = document.getElementById('choose');
-let inputArea = document.getElementById('color');
 
 input.addEventListener('input', function () {
     rubberBtn.style.background = 'transparent';
@@ -136,7 +150,6 @@ input.addEventListener('input', function () {
     ctx.fillStyle = color;
 });
 
-let colorsBtn = document.querySelectorAll('.color__item');
 
 for(let i = 0; i !== colorsBtn.length; i++) {
     colorsBtn[i].addEventListener('click', function () {
@@ -147,7 +160,6 @@ for(let i = 0; i !== colorsBtn.length; i++) {
     })
 }
 
-let colorsOpen = document.querySelector('.btn.color');
 colorsOpen.addEventListener('click', function (){
     if (colorTrigger === 0) {
         colorsOpen.setAttribute('class', 'btn color color_enabled');
@@ -158,7 +170,6 @@ colorsOpen.addEventListener('click', function (){
     }
 })
 
-let menuOpen = document.querySelector('.menu');
 menuOpen.addEventListener('click', function () {
     menuOpen.setAttribute('class', 'btn menu menu_active');
 });
@@ -166,12 +177,10 @@ menuOpen.addEventListener('dblclick', function () {
     menuOpen.setAttribute('class', 'btn menu menu_disabled');
 })
 
-let saveBtn = document.getElementById('saveBtn');
 saveBtn.addEventListener('click', function () {
     save();
 });
 
-let replyBtn = document.getElementById('replyBtn');
 replyBtn.addEventListener('click', function () {
     clear();
     let saved = JSON.parse(localStorage.getItem('cords'));
@@ -180,19 +189,16 @@ replyBtn.addEventListener('click', function () {
     reply(cords);
 })
 
-let clearBtn = document.getElementById('clearBtn');
 clearBtn.addEventListener('click', function () {
     cords = [];
     clear();
 });
 
-let rubberBtn = document.getElementById('rubberBtn');
 rubberBtn.addEventListener('click', function () {
     color = rubberColor
     rubberBtn.style.background = 'rgba(255,255,255,0.21)';
 })
 
-let weightInp = document.getElementById('weightInp');
 weightInp.addEventListener('input', function (){
     menuOpen.setAttribute('class', 'btn menu menu_disabled');
     lineWidth = weightInp.value;
@@ -201,8 +207,23 @@ weightInp.addEventListener('input', function (){
     document.querySelector('.weight__info').innerHTML = weightInp.value;
 })
 
-let weightBtn = document.getElementById('weightBtn');
 weightBtn.addEventListener('click', function () {
+    document.querySelector('.speed').style.display = 'none';
+    document.querySelector('.speed').style.opacity = '0';
     document.querySelector('.weight').style.display = 'flex';
     document.querySelector('.weight').style.opacity = '1';
+})
+
+speedInp.addEventListener('input', function () {
+    menuOpen.setAttribute('class', 'btn menu menu_disabled');
+    speed = speedInp.value;
+    document.querySelector('.speed__info').style.left = 10 * speedInp.value + 'px';
+    document.querySelector('.speed__info').innerHTML = speedInp.value
+});
+
+speedBtn.addEventListener('click', function () {
+    document.querySelector('.weight').style.display = 'none';
+    document.querySelector('.weight').style.opacity = '0';
+    document.querySelector('.speed').style.display = 'flex';
+    document.querySelector('.speed').style.opacity = '1';
 })
