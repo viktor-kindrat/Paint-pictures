@@ -141,7 +141,9 @@ function reply(arr) {
     let cordsCopy = arr;
     let timer = setInterval(function () {
         if (!cordsCopy.length) {
-            clearInterval(timer)
+            clearInterval(timer);
+            lineWidth = localStorage.getItem('lineWidth') || 10;
+            ctx.lineWidth = lineWidth*2;
             ctx.beginPath();
             return ;
         }
