@@ -2,7 +2,7 @@
 Paint custom version made useing JS canvas 🎨
 ---
 
-JS project. Сustom copy of all known paint for PCs and smartphones designed with JS canvas.
+JS project. Сustom copy of all known paint for PCs and smartphones developed with JS canvas.
 
 ---
 ### Features: 
