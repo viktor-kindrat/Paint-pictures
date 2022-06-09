@@ -2,6 +2,8 @@
 Paint custom version made useing JS canvas 🎨
 ---
 
+<a href="https://wakatime.com/badge/github/victor-kindrat/Paint-pictures"><img src="https://wakatime.com/badge/github/victor-kindrat/Paint-pictures.svg" alt="wakatime"></a>
+
 JS project. Сustom copy of all known paint for PCs and smartphones developed with JS canvas.
 
 ---
