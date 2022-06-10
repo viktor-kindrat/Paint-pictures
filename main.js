@@ -1,4 +1,5 @@
 let colorTrigger = 0;
+let menuTrigger = 0;
 let rubberColor = '#ffffff';
 let color = '#141414';
 let lineWidth = localStorage.getItem('lineWidth') || 10;
@@ -231,11 +232,14 @@ colorsOpen.addEventListener('click', function (){
 })
 
 menuOpen.addEventListener('click', function () {
-    menuOpen.setAttribute('class', 'btn menu menu_active');
+    if (menuTrigger === 0) {
+        menuOpen.setAttribute('class', 'btn menu menu_active');
+        menuTrigger = 1;
+    } else {
+        menuOpen.setAttribute('class', 'btn menu menu_disabled');
+        menuTrigger = 0
+    }
 });
-menuOpen.addEventListener('dblclick', function () {
-    menuOpen.setAttribute('class', 'btn menu menu_disabled');
-})
 
 saveBtn.addEventListener('click', function () {
     save();
