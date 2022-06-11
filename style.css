@@ -84,14 +84,6 @@ body {
     align-items: center;
 }
 
-.menu__logo {
-    height: 70px;
-    width: 240px;
-    background: url("./images/menu/logo.svg") no-repeat center;
-    margin-right: 5rem;
-    align-self: center;
-}
-
 .menu__row {
     display: flex;
     justify-content: space-around;
