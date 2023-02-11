@@ -17,6 +17,7 @@ JS project. Сustom copy of all known paint for PCs and smartphones developed wi
 - Opening of last files saved in localstorage (in dev)
 - Rubber brush
 - Double click closeing of main menu
+- Range inputs
 ---
 
 #### You can look preview here:
